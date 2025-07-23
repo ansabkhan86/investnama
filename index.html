@@ -1,84 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InvestNama — Know More. Grow More.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>InvestNama — Your Finance Friend</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #F5F5F5;
-      color: #212121;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8f9fa;
+      color: #212529;
     }
     header {
-      background-color: #1A237E;
-      color: white;
-      padding: 20px;
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #0d6efd;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #212529;
+      font-weight: 500;
+    }
+    .hero {
+      padding: 80px 40px;
       text-align: center;
     }
-    header h1 {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
     }
-    header p {
-      margin: 5px 0 0;
-      font-weight: 400;
+    .hero p {
+      font-size: 1.2rem;
+      color: #555;
     }
     .cta {
-      background-color: #4DB6AC;
-      color: white;
-      padding: 15px 25px;
+      margin-top: 30px;
+    }
+    .cta a {
+      background: #0d6efd;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 6px;
       text-decoration: none;
-      display: inline-block;
-      margin-top: 20px;
-      border-radius: 8px;
-      font-weight: 600;
+      font-weight: bold;
     }
-    .section {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 20px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-    .footer {
+    footer {
       text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #555;
+      padding: 40px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>InvestNama</h1>
-    <p>Your Finance Friend with Real Answers</p>
-    <a href="#tools" class="cta">Explore Stocks</a>
+    <div class="logo">InvestNama</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Resources</a>
+      <a href="#">Contact</a>
+    </nav>
   </header>
 
-  <div class="section" id="tools">
-    <h2>Quick Tools</h2>
-    <ul>
-      <li>✔️ Basic Stock Screener (Coming Soon)</li>
-      <li>✔️ Daily Insights (Coming Soon)</li>
-    </ul>
-  </div>
+  <section class="hero">
+    <h1>Know More. Grow More.</h1>
+    <p>Your finance friend with real answers — guiding you through investments, savings, and smarter money moves.</p>
+    <div class="cta">
+      <a href="#">Get Started</a>
+    </div>
+  </section>
 
-  <div class="section">
-    <h2>Learn Finance</h2>
-    <p>Explore bite-sized articles designed for beginners:</p>
-    <ul>
-      <li>What is a Mutual Fund?</li>
-      <li>How to Read a Stock Chart</li>
-      <li>Top 5 Halal Investments in Pakistan</li>
-    </ul>
-  </div>
-
-  <div class="footer">
-    &copy; 2025 InvestNama | <a href="#">About</a> | <a href="#">Contact</a> | <a href="#">Disclaimer</a>
-  </div>
+  <footer>
+    © 2025 InvestNama. All rights reserved.
+  </footer>
 </body>
 </html>
