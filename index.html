@@ -4,14 +4,55 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Investnama - Know More. Grow More. Your expert-friend in Islamic finance." />
+  <meta name="theme-color" content="#00A99D">
   <title>Investnama | Know More. Grow More.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Dropdown menu on hover */
     .group:hover .group-hover\:block {
       display: block;
     }
+    
+    /* Islamic badge */
+    .islamic-badge {
+      display: inline-block;
+      background-color: rgba(0, 135, 126, 0.1);
+      color: #00877E;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    /* Mobile banner height */
+    @media (max-width: 768px) {
+      .hero-banner {
+        height: 50vh !important;
+      }
+    }
+    
+    /* Mobile menu styles */
+    .mobile-menu {
+      display: none;
+    }
+    
+    .mobile-menu.active {
+      display: block;
+    }
   </style>
+  <script>
+    // Reduced motion alternative for banner
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('reduce-motion');
+    }
+    
+    // Mobile menu toggle function
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-nav');
+      menu.classList.toggle('active');
+    }
+  </script>
 </head>
 <body class="bg-white text-gray-800 font-sans">
 
@@ -23,38 +64,71 @@
         <span class="text-[#00A99D]" dir="rtl" lang="ur">نامہ</span>
       </h1>
     </div>
-<nav class="flex space-x-6 text-sm font-medium relative">
-  <div class="group relative">
-    <a href="#" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline transition">Tools</a>
-    <div class="absolute left-0 top-full mt-2 hidden group-hover:flex flex-col bg-white shadow-md rounded-md w-44 py-2 z-50 border border-gray-100">
-      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">SIP Calculator</a>
-      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Real Return Tool</a>
-    </div>
-  </div>
-  <div class="group relative">
-    <a href="#" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline transition">Learn</a>
-    <div class="absolute left-0 top-full mt-2 hidden group-hover:flex flex-col bg-white shadow-md rounded-md w-44 py-2 z-50 border border-gray-100">
-      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Stocks</a>
-      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Mutual Funds</a>
-      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Blog</a>
-    </div>
-  </div>
-  <div class="group relative">
-    <a href="#" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline transition">About</a>
-    <div class="absolute left-0 top-full mt-2 hidden group-hover:flex flex-col bg-white shadow-md rounded-md w-44 py-2 z-50 border border-gray-100">
-      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Vision</a>
-      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Mission</a>
-    </div>
-  </div>
-  <a href="#" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline transition">Contact</a>
-</nav>
-
-
-
+    
+    <!-- Mobile Menu Button -->
+    <button class="md:hidden block" id="mobile-menu-button" aria-label="Open menu" onclick="toggleMobileMenu()">
+      <svg class="w-6 h-6 text-[#0A4D8C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+    
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex space-x-6 text-sm font-medium relative" aria-label="Main navigation">
+      <div class="group relative" aria-haspopup="true">
+        <a href="#" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline transition" aria-expanded="false">Tools</a>
+        <div class="absolute left-0 top-full mt-2 hidden group-hover:flex flex-col bg-white shadow-md rounded-md w-44 py-2 z-50 border border-gray-100" aria-hidden="true" role="menu">
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition" role="menuitem">SIP Calculator</a>
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition" role="menuitem">Real Return Tool</a>
+        </div>
+      </div>
+      <div class="group relative" aria-haspopup="true">
+        <a href="#" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline transition" aria-expanded="false">Learn</a>
+        <div class="absolute left-0 top-full mt-2 hidden group-hover:flex flex-col bg-white shadow-md rounded-md w-44 py-2 z-50 border border-gray-100" aria-hidden="true" role="menu">
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition" role="menuitem">Stocks</a>
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition" role="menuitem">Mutual Funds</a>
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition" role="menuitem">Blog</a>
+        </div>
+      </div>
+      <div class="group relative" aria-haspopup="true">
+        <a href="#" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline transition" aria-expanded="false">About</a>
+        <div class="absolute left-0 top-full mt-2 hidden group-hover:flex flex-col bg-white shadow-md rounded-md w-44 py-2 z-50 border border-gray-100" aria-hidden="true" role="menu">
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition" role="menuitem">Vision</a>
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition" role="menuitem">Mission</a>
+        </div>
+      </div>
+      <a href="#" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline transition">Contact</a>
+    </nav>
   </header>
+  
+  <!-- Mobile Navigation -->
+  <nav id="mobile-nav" class="mobile-menu md:hidden bg-white p-4 border-b shadow-md">
+    <div class="mb-4">
+      <a href="#" class="block py-2 text-[#0A4D8C] font-medium">Tools</a>
+      <div class="pl-4">
+        <a href="#" class="block py-2 text-gray-700">SIP Calculator</a>
+        <a href="#" class="block py-2 text-gray-700">Real Return Tool</a>
+      </div>
+    </div>
+    <div class="mb-4">
+      <a href="#" class="block py-2 text-[#0A4D8C] font-medium">Learn</a>
+      <div class="pl-4">
+        <a href="#" class="block py-2 text-gray-700">Stocks</a>
+        <a href="#" class="block py-2 text-gray-700">Mutual Funds</a>
+        <a href="#" class="block py-2 text-gray-700">Blog</a>
+      </div>
+    </div>
+    <div class="mb-4">
+      <a href="#" class="block py-2 text-[#0A4D8C] font-medium">About</a>
+      <div class="pl-4">
+        <a href="#" class="block py-2 text-gray-700">Vision</a>
+        <a href="#" class="block py-2 text-gray-700">Mission</a>
+      </div>
+    </div>
+    <a href="#" class="block py-2 text-[#0A4D8C] font-medium">Contact</a>
+  </nav>
 
   <!-- Hero Banner (Teal Theme Rotating) -->
-  <section class="relative w-full h-[60vh] overflow-hidden">
+  <section class="relative w-full hero-banner h-[60vh] overflow-hidden">
     <div class="w-full h-full relative">
       <div class="absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1554224155-3a58922a22c3?q=80&w=2041');"></div>
       <div class="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-cover bg-center" style="background-image: url('https://source.unsplash.com/1600x900/?finance,islamic');"></div>
@@ -75,7 +149,10 @@
       <p class="text-sm text-gray-600">Easy-to-understand guides on Islamic finance, investing, and budgeting.</p>
     </div>
     <div>
-      <h3 class="text-xl font-bold text-[#0A4D8C] mb-2">Stock Insights</h3>
+      <div class="flex items-center mb-2">
+        <h3 class="text-xl font-bold text-[#0A4D8C] mr-2">Stock Insights</h3>
+        <span class="islamic-badge">Halal Certified</span>
+      </div>
       <p class="text-sm text-gray-600">PSX-based Shariah-compliant stock analysis, signals, and tips.</p>
     </div>
     <div>
@@ -98,12 +175,16 @@
 
   <!-- Banner Auto Scroll Script -->
   <script>
-    const banners = document.querySelectorAll("section > div > div.absolute");
-    let index = 0;
-    setInterval(() => {
-      banners.forEach((b, i) => b.style.opacity = i === index ? '1' : '0');
-      index = (index + 1) % banners.length;
-    }, 5000);
+    // Only run animation if reduced motion is not preferred
+    if (!document.documentElement.classList.contains('reduce-motion')) {
+      const banners = document.querySelectorAll(".hero-banner > div > div.absolute");
+      let index = 0;
+      
+      setInterval(() => {
+        banners.forEach((b, i) => b.style.opacity = i === index ? '1' : '0');
+        index = (index + 1) % banners.length;
+      }, 5000);
+    }
   </script>
 
 </body>
