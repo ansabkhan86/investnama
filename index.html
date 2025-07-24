@@ -2,90 +2,108 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>InvestNama — Your Finance Friend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Investnama - Know More. Grow More. Your expert-friend in Islamic finance." />
+  <title>Investnama | Know More. Grow More.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f8f9fa;
-      color: #212529;
-    }
-    header {
-      background: #fff;
-      border-bottom: 1px solid #e5e5e5;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #0d6efd;
-    }
-    nav a {
-      margin-left: 20px;
-      text-decoration: none;
-      color: #212529;
-      font-weight: 500;
-    }
-    .hero {
-      padding: 80px 40px;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      color: #555;
-    }
-    .cta {
-      margin-top: 30px;
-    }
-    .cta a {
-      background: #0d6efd;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    footer {
-      text-align: center;
-      padding: 40px;
-      font-size: 0.9rem;
-      color: #aaa;
-    }
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 1.8rem; }
-      .hero p { font-size: 1rem; }
+    /* Dropdown menu on hover */
+    .group:hover .group-hover\:block {
+      display: block;
     }
   </style>
 </head>
-<body>
-  <header>
-    <div class="logo">InvestNama</div>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <a href="#">Resources</a>
-      <a href="#">Contact</a>
-    </nav>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="flex items-center justify-between p-6 border-b shadow-sm sticky top-0 bg-white z-50">
+    <div class="flex items-center space-x-1">
+      <h1 class="text-3xl font-bold">
+        <span class="text-[#0A4D8C]">Invest</span>
+        <span class="text-[#00A99D]" dir="rtl" lang="ur">نامہ</span>
+      </h1>
+    </div>
+    <nav class="flex space-x-6 text-sm font-medium relative">
+  <div class="group relative">
+    <a href="#" class="text-gray-800 hover:text-[#00A99D] hover:underline transition">Tools</a>
+    <div class="absolute left-0 top-full mt-2 hidden group-hover:flex flex-col bg-white shadow-md rounded-md w-44 py-2 z-50 border border-gray-100">
+      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">SIP Calculator</a>
+      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Real Return Tool</a>
+    </div>
+  </div>
+  <div class="group relative">
+    <a href="#" class="text-gray-800 hover:text-[#00A99D] hover:underline transition">Learn</a>
+    <div class="absolute left-0 top-full mt-2 hidden group-hover:flex flex-col bg-white shadow-md rounded-md w-44 py-2 z-50 border border-gray-100">
+      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Stocks</a>
+      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Mutual Funds</a>
+      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Blog</a>
+    </div>
+  </div>
+  <div class="group relative">
+    <a href="#" class="text-gray-800 hover:text-[#00A99D] hover:underline transition">About</a>
+    <div class="absolute left-0 top-full mt-2 hidden group-hover:flex flex-col bg-white shadow-md rounded-md w-44 py-2 z-50 border border-gray-100">
+      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Vision</a>
+      <a href="#" class="px-4 py-2 text-gray-700 hover:text-[#00A99D] hover:bg-gray-50 transition">Mission</a>
+    </div>
+  </div>
+  <a href="#" class="text-gray-800 hover:text-[#00A99D] hover:underline transition">Contact</a>
+</nav>
+
+
   </header>
 
-  <section class="hero">
-    <h1>Know More. Grow More.</h1>
-    <p>Your finance friend with real answers — guiding you through investments, savings, and smarter money moves.</p>
-    <div class="cta">
-      <a href="#">Get Started</a>
+  <!-- Hero Banner (Teal Theme Rotating) -->
+  <section class="relative w-full h-[60vh] overflow-hidden">
+    <div class="w-full h-full relative">
+      <div class="absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1554224155-3a58922a22c3?q=80&w=2041');"></div>
+      <div class="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-cover bg-center" style="background-image: url('https://source.unsplash.com/1600x900/?finance,islamic');"></div>
+      <div class="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-cover bg-center" style="background-image: url('https://source.unsplash.com/1600x900/?investment,halal');"></div>
+    </div>
+    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-center">
+      <div>
+        <h2 class="text-white text-4xl md:text-6xl font-bold mb-4">Know More. Grow More.</h2>
+        <p class="text-white text-xl">Your finance friend with real answers.</p>
+      </div>
     </div>
   </section>
 
-  <footer>
-    © 2025 InvestNama. All rights reserved.
+  <!-- Features -->
+  <section class="py-16 px-6 bg-white grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
+    <div>
+      <h3 class="text-xl font-bold text-[#0A4D8C] mb-2">Educational Blog</h3>
+      <p class="text-sm text-gray-600">Easy-to-understand guides on Islamic finance, investing, and budgeting.</p>
+    </div>
+    <div>
+      <h3 class="text-xl font-bold text-[#0A4D8C] mb-2">Stock Insights</h3>
+      <p class="text-sm text-gray-600">PSX-based Shariah-compliant stock analysis, signals, and tips.</p>
+    </div>
+    <div>
+      <h3 class="text-xl font-bold text-[#0A4D8C] mb-2">Tools & Trackers</h3>
+      <p class="text-sm text-gray-600">Get calculators, SIP trackers, and halal investment checkers.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-[#00A99D] text-white text-center">
+    <h3 class="text-3xl font-semibold mb-4">Ready to grow?</h3>
+    <p class="mb-6 text-lg">Start your journey to halal investing today.</p>
+    <a href="#" class="inline-block bg-white text-[#00A99D] px-6 py-2 rounded-full font-semibold hover:bg-gray-100 transition">Explore Blog</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 text-sm text-gray-500 border-t">
+    © 2025 Investnama. All rights reserved.
   </footer>
+
+  <!-- Banner Auto Scroll Script -->
+  <script>
+    const banners = document.querySelectorAll("section > div > div.absolute");
+    let index = 0;
+    setInterval(() => {
+      banners.forEach((b, i) => b.style.opacity = i === index ? '1' : '0');
+      index = (index + 1) % banners.length;
+    }, 5000);
+  </script>
+
 </body>
 </html>
