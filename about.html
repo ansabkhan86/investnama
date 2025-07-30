@@ -1,57 +1,1083 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us | Investnama</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Investnama - Empowering Investors Through Education</title>
+    <meta name="description" content="Learn about Investnama's mission to transform Pakistan's investment landscape through financial education and accessible tools.">
+    <meta name="keywords" content="financial education, investment tools, Pakistan investors, wealth building, financial literacy">
+    <meta name="author" content="Investnama">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #0A4D8C;
+            --primary-teal: #00A99D;
+            --secondary-blue: #0d6efd;
+            --light-teal: #e6f7f6;
+            --dark-blue: #083c6e;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--light-gray);
+            color: #333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .logo-blue {
+            color: var(--primary-blue);
+        }
+        
+        .logo-teal {
+            color: var(--primary-teal);
+            margin-left: 4px;
+        }
+        
+        /* Navigation */
+        .desktop-nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .desktop-nav a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .desktop-nav a i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .desktop-nav a:hover {
+            color: var(--primary-teal);
+        }
+        
+        .desktop-nav a.active {
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+        
+        .mobile-menu-btn span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 30px;
+            background: var(--primary-blue);
+            border-radius: 2px;
+            left: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn span:nth-child(1) {
+            top: 10px;
+        }
+        
+        .mobile-menu-btn span:nth-child(2) {
+            top: 18px;
+        }
+        
+        .mobile-menu-btn span:nth-child(3) {
+            top: 26px;
+        }
+        
+        .mobile-menu-btn.open span:nth-child(1) {
+            top: 18px;
+            transform: rotate(45deg);
+        }
+        
+        .mobile-menu-btn.open span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-btn.open span:nth-child(3) {
+            top: 18px;
+            transform: rotate(-45deg);
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 70px);
+            background: white;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 99;
+            overflow-y: auto;
+        }
+        
+        .mobile-nav.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-nav a {
+            display: block;
+            padding: 15px 10px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .mobile-nav a i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--primary-teal);
+            background: var(--light-teal);
+        }
+        
+        /* Hero Section */
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .about-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .about-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        /* Mission Section */
+        .mission {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .mission-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        
+        .mission-content {
+            flex: 1;
+        }
+        
+        .section-tag {
+            display: inline-block;
+            background: var(--primary-teal);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .section-text {
+            color: #555;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(10, 77, 140, 0.1) 0%, rgba(0, 169, 157, 0.1) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-teal);
+            margin: 30px 0;
+        }
+        
+        .mission-image {
+            flex: 1;
+            position: relative;
+        }
+        
+        .image-frame {
+            background: var(--light-teal);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-frame img {
+            width: 100%;
+            border-radius: 15px;
+            display: block;
+        }
+        
+        /* Vision Section */
+        .vision {
+            padding: 100px 0;
+            background: var(--light-teal);
+            text-align: center;
+        }
+        
+        .vision-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 60px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-circle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-teal);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+            max-width: 150px;
+            line-height: 1.4;
+        }
+        
+        .arrow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .arrow {
+            font-size: 3rem;
+            color: var(--primary-teal);
+            margin: 0 20px;
+        }
+        
+        /* Timeline Section */
+        .timeline {
+            padding: 100px 0;
+            background: white;
+            position: relative;
+        }
+        
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: var(--primary-teal);
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            margin-bottom: 60px;
+            position: relative;
+            width: 100%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            padding-right: 50%;
+        }
+        
+        .timeline-item:nth-child(even) {
+            padding-left: 50%;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-teal);
+            border: 4px solid white;
+            border-radius: 50%;
+            margin-left: -12px;
+            box-shadow: 0 0 0 4px var(--primary-teal);
+            z-index: 2;
+        }
+        
+        .timeline-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+        
+        .timeline-year {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-teal);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-title {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        /* Values Section */
+        .values {
+            padding: 100px 0;
+            background: var(--light-teal);
+        }
+        
+        .values-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .value-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .value-icon {
+            height: 120px;
+            background: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .value-content {
+            padding: 30px;
+        }
+        
+        .value-title {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        .value-desc {
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        /* Start Journey Section */
+        .journey {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .journey-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .journey h2 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+        }
+        
+        .journey p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .journey-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 60px 0;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 200px;
+            margin: 0 15px 30px;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-teal);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .step-desc {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: var(--primary-blue);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            background: #f8f9fa;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 70px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-teal);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-about p {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary-teal);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .animate {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .mission-container {
+                flex-direction: column;
+            }
+            
+            .timeline-container::before {
+                left: 30px;
+            }
+            
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding: 0 0 0 70px;
+            }
+            
+            .timeline-dot {
+                left: 30px;
+            }
+            
+            .journey-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .vision-stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .arrow-container {
+                flex-direction: column;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+                margin: 20px 0;
+            }
+        }
+    </style>
 </head>
-<body class="bg-white text-gray-800">
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-blue">Invest</span>
+                <span class="logo-teal" dir="rtl" lang="ur">نامہ</span>
+            </a>
+            
+            <nav class="desktop-nav">
+                <a href="tools.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="learn.html"><i class="fas fa-graduation-cap"></i> Learn</a>
+                <a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            </nav>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="tools.html"><i class="fas fa-tools"></i> Tools</a>
+            <a href="learn.html"><i class="fas fa-graduation-cap"></i> Learn</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
+    </header>
 
-  <!-- Header -->
-  <header class="flex items-center justify-between p-6 border-b shadow-sm">
-    <div class="text-2xl font-bold">
-      <span class="text-[#0A4D8C]">Invest</span><span class="text-[#00A99D]" dir="rtl" lang="ur">نامہ</span>
-    </div>
-    <nav class="space-x-8 text-sm font-semibold text-[#0A4D8C]">
-      <a href="index.html" class="hover:underline">Home</a>
-      <a href="tools.html" class="hover:underline">Tools</a>
-      <a href="learn.html" class="hover:underline">Learn</a>
-      <a href="about.html" class="underline">About</a>
-      <a href="contact.html" class="hover:underline">Contact</a>
-    </nav>
-  </header>
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1 class="animate">Our Mission: Empower 10 Million Investors</h1>
+            <p class="animate delay-1">We're on a journey to transform Pakistan's investment landscape through financial education and accessible tools</p>
+        </div>
+    </section>
 
-  <!-- About Content -->
-  <section class="max-w-4xl mx-auto px-6 py-16">
-    <h1 class="text-4xl font-bold text-[#0A4D8C] mb-6">About Investnama</h1>
+    <!-- Mission Section -->
+    <section class="mission">
+        <div class="container mission-container">
+            <div class="mission-content animate">
+                <span class="section-tag"><i class="fas fa-rocket"></i> Our Story</span>
+                <h2 class="section-title">From Idea to Impact</h2>
+                <p class="section-text">Investnama was founded in 2023 with a simple yet powerful vision: to democratize financial knowledge and empower every Pakistani to take control of their financial future.</p>
+                
+                <div class="highlight">
+                    <p><i class="fas fa-quote-left"></i> Today, only 400,000 Pakistanis have CDC accounts. We're on a mission to increase this to 10 million by making investment education accessible to everyone. <i class="fas fa-quote-right"></i></p>
+                </div>
+                
+                <p class="section-text">Our platform was born from the realization that financial literacy is the foundation of wealth creation. With "Know More. Grow More." as our guiding principle, we're building tools and resources that transform complex financial concepts into actionable knowledge.</p>
+            </div>
+            <div class="mission-image animate delay-1">
+                <div class="image-frame">
+                    <div style="background: linear-gradient(135deg, #0A4D8C 0%, #00A99D 100%); height: 300px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-lightbulb" style="font-size: 3rem; margin-bottom: 20px; animation: pulse 2s infinite;"></i>
+                            <p>Visualizing Financial Growth</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <p class="text-lg mb-6 text-gray-700">Investnama is your expert-friend in Islamic finance, helping you make smarter, Shariah-compliant financial decisions with confidence.</p>
+    <!-- Vision Section -->
+    <section class="vision">
+        <div class="container">
+            <span class="section-tag"><i class="fas fa-eye"></i> Our Vision</span>
+            <h2 class="section-title">Transforming Pakistan's Investment Culture</h2>
+            <p class="section-text">We believe that financial education is the key to unlocking Pakistan's economic potential</p>
+            
+            <div class="vision-stats">
+                <div class="stat-circle animate">
+                    <div class="stat-value">400K</div>
+                    <div class="stat-label">Current Investors</div>
+                </div>
+                
+                <div class="arrow-container">
+                    <div class="arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+                </div>
+                
+                <div class="stat-circle animate delay-1">
+                    <div class="stat-value">10M</div>
+                    <div class="stat-label">Our Vision for Pakistan</div>
+                </div>
+            </div>
+            
+            <div class="container" style="max-width: 800px;">
+                <p class="section-text animate delay-2">Our goal is to grow Pakistan's investor base from 400,000 to 10 million by 2030 through accessible financial education, practical tools, and community building.</p>
+            </div>
+        </div>
+    </section>
 
-    <h2 class="text-2xl font-semibold text-[#0A4D8C] mb-2">Our Vision</h2>
-    <p class="mb-6 text-gray-700">To build the most trusted Islamic financial knowledge and tools platform in the region — empowering every individual to invest with clarity and purpose.</p>
+    <!-- Timeline Section -->
+    <section class="timeline">
+        <div class="container">
+            <span class="section-tag"><i class="fas fa-road"></i> Our Journey</span>
+            <h2 class="section-title">Milestones & Progress</h2>
+            
+            <div class="timeline-container">
+                <div class="timeline-item animate">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year"><i class="fas fa-calendar-alt"></i> 2023</div>
+                        <h3 class="timeline-title">The Idea Was Born</h3>
+                        <p>Recognizing the gap in financial education in Pakistan, the concept of Investnama was conceived to empower investors through knowledge.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item animate delay-1">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year"><i class="fas fa-calendar-alt"></i> Early 2024</div>
+                        <h3 class="timeline-title">Research & Development</h3>
+                        <p>Conducted extensive market research to understand investor needs and began developing our educational platform.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item animate delay-2">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year"><i class="fas fa-calendar-alt"></i> Mid 2024</div>
+                        <h3 class="timeline-title">Platform Development</h3>
+                        <p>Started building our suite of financial tools and educational resources focused on user-friendly design.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item animate delay-3">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year"><i class="fas fa-calendar-alt"></i> Today</div>
+                        <h3 class="timeline-title">Incubation Phase</h3>
+                        <p>Refining our offerings and preparing for launch. Building foundational content to serve Pakistan's investment community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <h2 class="text-2xl font-semibold text-[#0A4D8C] mb-2">Our Mission</h2>
-    <p class="mb-6 text-gray-700">To simplify financial literacy and make halal investing accessible, actionable, and rewarding for all.</p>
+    <!-- Values Section -->
+    <section class="values">
+        <div class="container values-container">
+            <span class="section-tag"><i class="fas fa-hand-holding-heart"></i> Our Approach</span>
+            <h2 class="section-title">How We're Making a Difference</h2>
+            <p class="section-text">Our three-pillar approach to transforming Pakistan's investment culture</p>
+            
+            <div class="values-grid">
+                <div class="value-card animate">
+                    <div class="value-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="value-content">
+                        <h3 class="value-title">Education First</h3>
+                        <p class="value-desc">Creating accessible content that breaks down complex investment concepts into easy-to-understand lessons.</p>
+                    </div>
+                </div>
+                
+                <div class="value-card animate delay-1">
+                    <div class="value-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="value-content">
+                        <h3 class="value-title">Practical Tools</h3>
+                        <p class="value-desc">Developing calculators, simulators, and planners that help investors apply what they learn.</p>
+                    </div>
+                </div>
+                
+                <div class="value-card animate delay-2">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="value-content">
+                        <h3 class="value-title">Community Building</h3>
+                        <p class="value-desc">Fostering a community where investors can share knowledge and learn from each other.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <h2 class="text-2xl font-semibold text-[#0A4D8C] mb-2">Why Investnama?</h2>
-    <ul class="list-disc pl-6 text-gray-700 space-y-2">
-      <li>Focused on Shariah-compliant investing</li>
-      <li>User-friendly tools like SIP calculator, inflation-adjusted returns</li>
-      <li>Clear, simple educational content</li>
-      <li>Pakistan-centric with global Islamic finance alignment</li>
-    </ul>
-  </section>
+    <!-- Start Journey Section -->
+    <section class="journey">
+        <div class="journey-container">
+            <h2 class="animate">Start Your Investnama Journey</h2>
+            <p class="animate delay-1">Plan your financial future with our comprehensive tools and resources</p>
+            
+            <div class="journey-steps">
+                <div class="step animate">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Learn</h3>
+                    <p class="step-desc">Build your financial knowledge with our educational resources</p>
+                </div>
+                
+                <div class="step animate delay-1">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Plan</h3>
+                    <p class="step-desc">Create your personalized financial roadmap</p>
+                </div>
+                
+                <div class="step animate delay-2">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Invest</h3>
+                    <p class="step-desc">Make informed investment decisions</p>
+                </div>
+                
+                <div class="step animate delay-3">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Grow</h3>
+                    <p class="step-desc">Watch your wealth grow over time</p>
+                </div>
+            </div>
+            
+            <a href="financial-planning.html" class="btn btn-primary pulse">Plan Your Investnama Journey</a>
+        </div>
+    </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-50 text-center py-6 text-sm text-gray-600 border-t">
-    <p>© 2025 Investnama. All rights reserved.</p>
-    <p><a href="#" class="text-[#0A4D8C] hover:underline">Privacy Policy</a> · <a href="#" class="text-[#0A4D8C] hover:underline">Terms</a></p>
-  </footer>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Investnama</h3>
+                    <div class="footer-about">
+                        <p>Empowering investors through education and innovative financial tools to help you grow your wealth.</p>
+                        <div class="social-links">
+                            <a href="comingsoon.html"><i class="fab fa-facebook-f"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-twitter"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-instagram"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="learn.html"><i class="fas fa-book"></i> Learning Center</a></li>
+                        <li><a href="tools.html"><i class="fas fa-calculator"></i> Financial Tools</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-chart-bar"></i> Market Insights</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-bookmark"></i> Investment Glossary</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-users"></i> Our Team</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-briefcase"></i> Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="comingsoon.html"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-cookie-bite"></i> Cookie Policy</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-balance-scale"></i> Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Investnama. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--primary-teal);"></i> for Smart Investors</p>
+            </div>
+        </div>
+    </footer>
 
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+        });
+        
+        // Close mobile menu when clicking on links
+        const mobileLinks = document.querySelectorAll('.mobile-nav a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('open');
+                mobileNav.classList.remove('open');
+            });
+        });
+        
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('.animate');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Handle coming soon links
+        document.querySelectorAll('a[href="comingsoon.html"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('This feature is coming soon!');
+            });
+        });
+    </script>
 </body>
 </html>
