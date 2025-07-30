@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Glossary | Investnama - Financial Terms Explained</title>
+    <meta name="description" content="Comprehensive investment glossary with categorized terms and definitions. Understand financial concepts to make smarter investment decisions.">
+    <meta name="keywords" content="investment glossary, financial terms, investing dictionary, stock market terminology">
+    <meta name="author" content="Investnama">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #0A4D8C;
+            --primary-teal: #00A99D;
+            --secondary-blue: #0d6efd;
+            --light-teal: #e6f7f6;
+            --dark-blue: #083c6e;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --gold: #FFD700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--light-gray);
+            color: #333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .logo-blue {
+            color: var(--primary-blue);
+        }
+        
+        .logo-teal {
+            color: var(--primary-teal);
+            margin-left: 4px;
+        }
+        
+        /* Navigation */
+        .desktop-nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .desktop-nav a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .desktop-nav a i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .desktop-nav a:hover {
+            color: var(--primary-teal);
+        }
+        
+        .desktop-nav a.active {
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+        
+        .mobile-menu-btn span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 30px;
+            background: var(--primary-blue);
+            border-radius: 2px;
+            left: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn span:nth-child(1) {
+            top: 10px;
+        }
+        
+        .mobile-menu-btn span:nth-child(2) {
+            top: 18px;
+        }
+        
+        .mobile-menu-btn span:nth-child(3) {
+            top: 26px;
+        }
+        
+        .mobile-menu-btn.open span:nth-child(1) {
+            top: 18px;
+            transform: rotate(45deg);
+        }
+        
+        .mobile-menu-btn.open span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-btn.open span:nth-child(3) {
+            top: 18px;
+            transform: rotate(-45deg);
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 70px);
+            background: white;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 99;
+            overflow-y: auto;
+        }
+        
+        .mobile-nav.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-nav a {
+            display: block;
+            padding: 15px 10px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .mobile-nav a i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--primary-teal);
+            background: var(--light-teal);
+        }
+        
+        /* Hero Section */
+        .glossary-hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            color: white;
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glossary-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .glossary-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        /* Search Section */
+        .search-section {
+            background: white;
+            padding: 30px 0;
+            position: sticky;
+            top: 70px;
+            z-index: 90;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .search-box {
+            display: flex;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 18px 25px;
+            border: none;
+            font-size: 1.1rem;
+            outline: none;
+        }
+        
+        .search-box button {
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box button:hover {
+            background: var(--dark-blue);
+        }
+        
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background: var(--light-teal);
+            color: var(--primary-teal);
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary-teal);
+            color: white;
+        }
+        
+        /* Glossary Content */
+        .glossary-content {
+            padding: 60px 0;
+        }
+        
+        .alphabet-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .alphabet-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: var(--primary-blue);
+            border-radius: 50%;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .alphabet-btn:hover, .alphabet-btn.active {
+            background: var(--primary-teal);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .glossary-category {
+            margin-bottom: 60px;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--light-teal);
+        }
+        
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--light-teal);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--primary-teal);
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+        
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .term-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .term-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .term-header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .term-letter {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .term-title {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .term-body {
+            padding: 25px;
+        }
+        
+        .term-definition {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .term-example {
+            background: var(--light-teal);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-teal);
+            font-style: italic;
+            color: var(--dark-blue);
+        }
+        
+        .term-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--primary-teal);
+            font-weight: 500;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 60px 0;
+            grid-column: 1 / -1;
+        }
+        
+        .no-results i {
+            font-size: 4rem;
+            color: var(--primary-teal);
+            margin-bottom: 20px;
+        }
+        
+        .no-results h3 {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 70px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-teal);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-about p {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary-teal);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .terms-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .glossary-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .glossary-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .category-title {
+                font-size: 1.8rem;
+            }
+            
+            .terms-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-blue">Invest</span>
+                <span class="logo-teal" dir="rtl" lang="ur">نامہ</span>
+            </a>
+            
+            <nav class="desktop-nav">
+                <a href="tools.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="learn.html"><i class="fas fa-graduation-cap"></i> Learn</a>
+				<a href="comingsoon.html"><i class="fas fa-newspaper"></i> Blog</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a href="glossary.html" class="active"><i class="fas fa-book"></i> Glossary</a>
+            </nav>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="tools.html"><i class="fas fa-tools"></i> Tools</a>
+            <a href="learn.html"><i class="fas fa-graduation-cap"></i> Learn</a>
+			<a href="comingsoon.html"><i class="fas fa-newspaper"></i> Blog</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="glossary.html" class="active"><i class="fas fa-book"></i> Glossary</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="glossary-hero">
+        <div class="container">
+            <h1 class="animate">Investment Glossary</h1>
+            <p class="animate delay-1">Master financial terminology with our comprehensive investment dictionary. Understand the language of investing to make smarter decisions.</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container search-container">
+            <div class="search-box animate">
+                <input type="text" id="searchInput" placeholder="Search for terms (e.g., 'dividend', 'ETF')...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="category-filters">
+                <button class="category-btn active" data-category="all">All Terms</button>
+                <button class="category-btn" data-category="stocks">Stocks</button>
+                <button class="category-btn" data-category="bonds">Bonds</button>
+                <button class="category-btn" data-category="funds">Funds</button>
+                <button class="category-btn" data-category="economics">Economics</button>
+                <button class="category-btn" data-category="analysis">Analysis</button>
+                <button class="category-btn" data-category="trading">Trading</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Glossary Content -->
+    <section class="glossary-content">
+        <div class="container">
+            <div class="alphabet-nav">
+                <a href="#" class="alphabet-btn" data-letter="a">A</a>
+                <a href="#" class="alphabet-btn" data-letter="b">B</a>
+                <a href="#" class="alphabet-btn" data-letter="c">C</a>
+                <a href="#" class="alphabet-btn" data-letter="d">D</a>
+                <a href="#" class="alphabet-btn" data-letter="e">E</a>
+                <a href="#" class="alphabet-btn" data-letter="f">F</a>
+                <a href="#" class="alphabet-btn" data-letter="g">G</a>
+                <a href="#" class="alphabet-btn" data-letter="h">H</a>
+                <a href="#" class="alphabet-btn" data-letter="i">I</a>
+                <a href="#" class="alphabet-btn" data-letter="j">J</a>
+                <a href="#" class="alphabet-btn" data-letter="k">K</a>
+                <a href="#" class="alphabet-btn" data-letter="l">L</a>
+                <a href="#" class="alphabet-btn" data-letter="m">M</a>
+                <a href="#" class="alphabet-btn" data-letter="n">N</a>
+                <a href="#" class="alphabet-btn" data-letter="o">O</a>
+                <a href="#" class="alphabet-btn" data-letter="p">P</a>
+                <a href="#" class="alphabet-btn" data-letter="q">Q</a>
+                <a href="#" class="alphabet-btn" data-letter="r">R</a>
+                <a href="#" class="alphabet-btn" data-letter="s">S</a>
+                <a href="#" class="alphabet-btn" data-letter="t">T</a>
+                <a href="#" class="alphabet-btn" data-letter="u">U</a>
+                <a href="#" class="alphabet-btn" data-letter="v">V</a>
+                <a href="#" class="alphabet-btn" data-letter="w">W</a>
+                <a href="#" class="alphabet-btn" data-letter="x">X</a>
+                <a href="#" class="alphabet-btn" data-letter="y">Y</a>
+                <a href="#" class="alphabet-btn" data-letter="z">Z</a>
+            </div>
+            
+            <!-- Stocks Category -->
+            <div class="glossary-category" data-category="stocks">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h2 class="category-title">Stocks & Equities</h2>
+                </div>
+                
+                <div class="terms-grid">
+                    <!-- Term Card -->
+                    <div class="term-card animate" data-letter="a" data-category="stocks">
+                        <div class="term-header">
+                            <div class="term-letter">A</div>
+                            <h3 class="term-title">Annual Report</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">A comprehensive report on a company's activities throughout the preceding year, intended to give shareholders and other interested parties information about the company's activities and financial performance.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> Investors review the annual report to assess a company's financial health and future prospects.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Stocks</span>
+                                <span><i class="fas fa-book"></i> Financial Reporting</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="term-card animate delay-1" data-letter="b" data-category="stocks">
+                        <div class="term-header">
+                            <div class="term-letter">B</div>
+                            <h3 class="term-title">Blue Chip Stock</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">Shares in large, well-established, and financially sound companies that have operated for many years and have dependable earnings, often paying dividends to investors.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> Companies like Apple and Microsoft are considered blue-chip stocks.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Stocks</span>
+                                <span><i class="fas fa-building"></i> Large Cap</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="term-card animate delay-2" data-letter="d" data-category="stocks">
+                        <div class="term-header">
+                            <div class="term-letter">D</div>
+                            <h3 class="term-title">Dividend</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">A portion of a company's earnings distributed to shareholders, usually paid quarterly. Dividends are often paid in cash but can also be in the form of additional shares.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> A company with strong profits might pay a dividend of $0.50 per share each quarter.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Stocks</span>
+                                <span><i class="fas fa-money-bill-wave"></i> Income</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bonds Category -->
+            <div class="glossary-category" data-category="bonds">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h2 class="category-title">Bonds & Fixed Income</h2>
+                </div>
+                
+                <div class="terms-grid">
+                    <div class="term-card animate" data-letter="c" data-category="bonds">
+                        <div class="term-header">
+                            <div class="term-letter">C</div>
+                            <h3 class="term-title">Coupon Rate</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">The annual interest rate paid by a bond relative to its face value. It represents the yield paid by a fixed-income security.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> A $1,000 bond with a 5% coupon pays $50 in interest annually.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Bonds</span>
+                                <span><i class="fas fa-chart-line"></i> Yield</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="term-card animate delay-1" data-letter="y" data-category="bonds">
+                        <div class="term-header">
+                            <div class="term-letter">Y</div>
+                            <h3 class="term-title">Yield to Maturity (YTM)</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">The total return anticipated on a bond if it is held until it matures. YTM is expressed as an annual rate and considers both interest payments and any gain or loss if the bond was purchased at a discount or premium to par value.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> A bond purchased at $950 with a face value of $1,000 and 5% coupon maturing in 10 years might have a YTM of 5.5%.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Bonds</span>
+                                <span><i class="fas fa-calculator"></i> Return</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Funds Category -->
+            <div class="glossary-category" data-category="funds">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h2 class="category-title">Funds & ETFs</h2>
+                </div>
+                
+                <div class="terms-grid">
+                    <div class="term-card animate" data-letter="e" data-category="funds">
+                        <div class="term-header">
+                            <div class="term-letter">E</div>
+                            <h3 class="term-title">ETF (Exchange-Traded Fund)</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">A type of investment fund that holds a collection of assets (stocks, bonds, commodities, etc.) and trades on stock exchanges like individual stocks. ETFs typically have lower fees than mutual funds.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> SPY is an ETF that tracks the S&P 500 index and trades throughout the day on stock exchanges.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Funds</span>
+                                <span><i class="fas fa-exchange-alt"></i> Trading</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="term-card animate delay-1" data-letter="n" data-category="funds">
+                        <div class="term-header">
+                            <div class="term-letter">N</div>
+                            <h3 class="term-title">Net Asset Value (NAV)</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">The value per share of a mutual fund or ETF, calculated by dividing the total value of all securities in the portfolio, minus any liabilities, by the number of fund shares outstanding.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> A mutual fund with $100 million in assets and 5 million shares outstanding has a NAV of $20 per share.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Funds</span>
+                                <span><i class="fas fa-calculator"></i> Valuation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Economics Category -->
+            <div class="glossary-category" data-category="economics">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h2 class="category-title">Economic Terms</h2>
+                </div>
+                
+                <div class="terms-grid">
+                    <div class="term-card animate" data-letter="g" data-category="economics">
+                        <div class="term-header">
+                            <div class="term-letter">G</div>
+                            <h3 class="term-title">GDP (Gross Domestic Product)</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">The total monetary value of all finished goods and services produced within a country's borders in a specific time period. It serves as a comprehensive measure of a nation's economic performance.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> A country with a growing GDP is generally considered to have a healthy economy.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Economics</span>
+                                <span><i class="fas fa-chart-line"></i> Macro</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="term-card animate delay-1" data-letter="i" data-category="economics">
+                        <div class="term-header">
+                            <div class="term-letter">I</div>
+                            <h3 class="term-title">Inflation</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">The rate at which the general level of prices for goods and services is rising, and consequently, purchasing power is falling. Central banks attempt to limit inflation to avoid the erosion of economic value.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> If the inflation rate is 2%, then a $1 pack of gum will cost $1.02 in a year.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Economics</span>
+                                <span><i class="fas fa-money-bill-wave"></i> Monetary</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analysis Category -->
+            <div class="glossary-category" data-category="analysis">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-search-dollar"></i>
+                    </div>
+                    <h2 class="category-title">Analysis & Metrics</h2>
+                </div>
+                
+                <div class="terms-grid">
+                    <div class="term-card animate" data-letter="p" data-category="analysis">
+                        <div class="term-header">
+                            <div class="term-letter">P</div>
+                            <h3 class="term-title">P/E Ratio (Price-to-Earnings)</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">A valuation ratio of a company's current share price compared to its per-share earnings. It indicates how much investors are willing to pay per dollar of earnings.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> A stock trading at $50 per share with $2 in earnings per share has a P/E ratio of 25.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Analysis</span>
+                                <span><i class="fas fa-calculator"></i> Valuation</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="term-card animate delay-1" data-letter="r" data-category="analysis">
+                        <div class="term-header">
+                            <div class="term-letter">R</div>
+                            <h3 class="term-title">ROI (Return on Investment)</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">A performance measure used to evaluate the efficiency of an investment or compare the efficiency of several different investments. ROI measures the amount of return on an investment relative to its cost.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> An investment that costs $1,000 and returns $1,200 has an ROI of 20%.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Analysis</span>
+                                <span><i class="fas fa-chart-line"></i> Performance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trading Category -->
+            <div class="glossary-category" data-category="trading">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h2 class="category-title">Trading Terms</h2>
+                </div>
+                
+                <div class="terms-grid">
+                    <div class="term-card animate" data-letter="b" data-category="trading">
+                        <div class="term-header">
+                            <div class="term-letter">B</div>
+                            <h3 class="term-title">Bull Market</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">A financial market condition in which prices are rising or are expected to rise. Bull markets are characterized by optimism, investor confidence, and expectations that strong results should continue.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> The period from 2009 to 2020 was one of the longest bull markets in history.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Trading</span>
+                                <span><i class="fas fa-chart-line"></i> Market</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="term-card animate delay-1" data-letter="v" data-category="trading">
+                        <div class="term-header">
+                            <div class="term-letter">V</div>
+                            <h3 class="term-title">Volatility</h3>
+                        </div>
+                        <div class="term-body">
+                            <p class="term-definition">A statistical measure of the dispersion of returns for a given security or market index. Often measured by standard deviation, volatility represents how much the price of an asset fluctuates around its average price.</p>
+                            <div class="term-example">
+                                <strong>Example:</strong> Cryptocurrencies are known for their high volatility compared to blue-chip stocks.
+                            </div>
+                            <div class="term-meta">
+                                <span><i class="fas fa-tag"></i> Trading</span>
+                                <span><i class="fas fa-chart-bar"></i> Risk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- No Results Message -->
+            <div class="no-results" id="noResultsMessage">
+                <i class="fas fa-search"></i>
+                <h3>No Matching Terms Found</h3>
+                <p>Try a different search term or browse by category.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Investnama</h3>
+                    <div class="footer-about">
+                        <p>Empowering investors through education and innovative financial tools to help you grow your wealth.</p>
+                        <div class="social-links">
+                            <a href="comingsoon.html"><i class="fab fa-facebook-f"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-twitter"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-instagram"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="learn.html"><i class="fas fa-book"></i> Learning Center</a></li>
+                        <li><a href="tools.html"><i class="fas fa-calculator"></i> Financial Tools</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-chart-bar"></i> Market Insights</a></li>
+                        <li><a href="glossary.html"><i class="fas fa-bookmark"></i> Investment Glossary</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-users"></i> Our Team</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-briefcase"></i> Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="comingsoon.html"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-cookie-bite"></i> Cookie Policy</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-balance-scale"></i> Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Investnama. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--primary-teal);"></i> for Smart Investors</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+        });
+        
+        // Close mobile menu when clicking on links
+        const mobileLinks = document.querySelectorAll('.mobile-nav a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('open');
+                mobileNav.classList.remove('open');
+            });
+        });
+        
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('.animate');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Glossary Search and Filter Functionality
+        const searchInput = document.getElementById('searchInput');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const alphabetBtns = document.querySelectorAll('.alphabet-btn');
+        const termCards = document.querySelectorAll('.term-card');
+        const glossaryCategories = document.querySelectorAll('.glossary-category');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        
+        // Hide no results message initially
+        noResultsMessage.style.display = 'none';
+        
+        // Category filter
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                filterTerms(category, searchInput.value);
+            });
+        });
+        
+        // Alphabet filter
+        alphabetBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Update active button
+                alphabetBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const letter = btn.dataset.letter;
+                filterTerms('all', '', letter);
+            });
+        });
+        
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+            filterTerms(activeCategory, searchTerm);
+        });
+        
+        // Filter terms function
+        function filterTerms(category, searchTerm = '', letter = '') {
+            let visibleCount = 0;
+            let anyCategoryVisible = false;
+            
+            glossaryCategories.forEach(cat => {
+                const catType = cat.dataset.category;
+                let categoryVisible = false;
+                
+                // Check if this category should be visible
+                const showCategory = category === 'all' || category === catType;
+                
+                termCards.forEach(card => {
+                    const cardCategory = card.dataset.category;
+                    const cardLetter = card.dataset.letter;
+                    const termTitle = card.querySelector('.term-title').textContent.toLowerCase();
+                    const termDefinition = card.querySelector('.term-definition').textContent.toLowerCase();
+                    
+                    // Check if card matches filters
+                    const matchesCategory = category === 'all' || category === cardCategory;
+                    const matchesSearch = !searchTerm || termTitle.includes(searchTerm) || termDefinition.includes(searchTerm);
+                    const matchesLetter = !letter || cardLetter === letter;
+                    
+                    if (matchesCategory && matchesSearch && matchesLetter) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                        categoryVisible = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Show/hide category based on whether it has visible terms
+                if (showCategory && categoryVisible) {
+                    cat.style.display = 'block';
+                    anyCategoryVisible = true;
+                } else {
+                    cat.style.display = 'none';
+                }
+            });
+            
+            // Show/hide no results message
+            if (visibleCount === 0) {
+                noResultsMessage.style.display = 'block';
+            } else {
+                noResultsMessage.style.display = 'none';
+            }
+            
+            // If no categories are visible but we have results, show them
+            if (!anyCategoryVisible && visibleCount > 0) {
+                glossaryCategories.forEach(cat => {
+                    cat.style.display = 'block';
+                });
+            }
+        }
+        
+        // Handle coming soon links
+        document.querySelectorAll('a[href="comingsoon.html"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('This feature is coming soon!');
+            });
+        });
+    </script>
+</body>
+</html>
