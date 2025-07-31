@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIP Calculator | Investnama - Calculate Systematic Investment Plan Returns</title>
+    <meta name="description" content="Calculate potential returns on your SIP investments with Investnama's free calculator. Understand how small regular investments can grow wealth over time through compounding.">
+    <meta name="keywords" content="SIP calculator, systematic investment plan, mutual fund calculator, investment calculator, wealth building">
+    <meta name="author" content="Investnama">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary-blue: #0A4D8C;
+            --primary-teal: #00A99D;
+            --secondary-blue: #0d6efd;
+            --light-teal: #e6f7f6;
+            --dark-blue: #083c6e;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --gold: #FFD700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-gray);
+            color: #333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .logo-blue {
+            color: var(--primary-blue);
+        }
+        
+        .logo-teal {
+            color: var(--primary-teal);
+            margin-left: 4px;
+        }
+        
+        /* Navigation */
+        .desktop-nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .desktop-nav a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .desktop-nav a i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .desktop-nav a:hover {
+            color: var(--primary-teal);
+        }
+        
+        .desktop-nav a.active {
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+        
+        .mobile-menu-btn span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 30px;
+            background: var(--primary-blue);
+            border-radius: 2px;
+            left: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn span:nth-child(1) {
+            top: 10px;
+        }
+        
+        .mobile-menu-btn span:nth-child(2) {
+            top: 18px;
+        }
+        
+        .mobile-menu-btn span:nth-child(3) {
+            top: 26px;
+        }
+        
+        .mobile-menu-btn.open span:nth-child(1) {
+            top: 18px;
+            transform: rotate(45deg);
+        }
+        
+        .mobile-menu-btn.open span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-btn.open span:nth-child(3) {
+            top: 18px;
+            transform: rotate(-45deg);
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 70px);
+            background: white;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 99;
+            overflow-y: auto;
+        }
+        
+        .mobile-nav.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-nav a {
+            display: block;
+            padding: 15px 10px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .mobile-nav a i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--primary-teal);
+            background: var(--light-teal);
+        }
+        
+        /* Hero Section */
+        .sip-hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            color: white;
+            padding: 80px 0 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sip-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            max-width: 700px;
+        }
+        
+        .sip-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-stat {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px 25px;
+            border-radius: 12px;
+            min-width: 180px;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Calculator Section */
+        .calculator-section {
+            padding: 70px 0;
+            background: white;
+        }
+        
+        .calculator-container {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .calculator-form {
+            flex: 1;
+            background: var(--light-teal);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--dark-blue);
+        }
+        
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        
+        .input-group span {
+            padding: 0 15px;
+            background: var(--light-teal);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+        
+        .input-group input {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+        }
+        
+        .input-slider {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            margin-top: 10px;
+        }
+        
+        .input-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            background: var(--primary-teal);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .calculator-results {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-teal);
+        }
+        
+        .results-title {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px 0;
+        }
+        
+        .result-label {
+            color: #555;
+        }
+        
+        .result-value {
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+        }
+        
+        .highlight-value {
+            color: var(--primary-teal);
+            font-size: 1.3rem;
+        }
+        
+        .chart-container {
+            margin: 30px 0;
+            height: 250px;
+            position: relative;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-primary {
+            background: var(--primary-teal);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            background: var(--dark-blue);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-teal);
+            color: var(--primary-teal);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(0, 169, 157, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Education Section */
+        .education-section {
+            padding: 70px 0;
+            background: var(--light-teal);
+        }
+        
+        .education-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .education-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .card-header i {
+            font-size: 1.8rem;
+        }
+        
+        .card-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .benefits-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .benefits-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .benefits-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .benefits-list li i {
+            color: var(--primary-teal);
+            margin-top: 5px;
+        }
+        
+        .how-it-works {
+            counter-reset: step;
+        }
+        
+        .step-item {
+            margin-bottom: 25px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .step-item::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-teal);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        /* Formula styling */
+        .formula-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-teal);
+            margin: 20px 0;
+        }
+        
+        .formula-title {
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .formula {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--dark-blue);
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 70px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background: var(--light-teal);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-answer p {
+            padding: 20px 0;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 70px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-teal);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-about p {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary-teal);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .animate {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .calculator-container {
+                flex-direction: column;
+            }
+            
+            .hero-stats {
+                gap: 15px;
+            }
+            
+            .hero-stat {
+                min-width: 150px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .sip-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .sip-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        /* Decorative Elements */
+        .deco-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .circle-1 {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .circle-2 {
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.15);
+            bottom: 20%;
+            left: -75px;
+        }
+        
+        .circle-3 {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            bottom: 10%;
+            right: 10%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-blue">Invest</span>
+                <span class="logo-teal" dir="rtl" lang="ur">نامہ</span>
+            </a>
+            
+            <nav class="desktop-nav">
+                <a href="tools.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="learn.html"><i class="fas fa-graduation-cap"></i> Learn</a>
+                <a href="comingsoon.html"><i class="fas fa-newspaper"></i> Blog</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            </nav>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="tools.html"><i class="fas fa-tools"></i> Tools</a>
+            <a href="learn.html"><i class="fas fa-graduation-cap"></i> Learn</a>
+            <a href="comingsoon.html"><i class="fas fa-newspaper"></i> Blog</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="sip-hero">
+        <div class="deco-circle circle-1"></div>
+        <div class="deco-circle circle-2"></div>
+        <div class="deco-circle circle-3"></div>
+        <div class="container">
+            <h1 class="animate">SIP Calculator</h1>
+            <p class="animate delay-1">Discover how small, regular investments can grow into significant wealth over time with our Systematic Investment Plan calculator.</p>
+            
+            <div class="hero-stats">
+                <div class="hero-stat animate delay-2">
+                    <div class="stat-value">PKR 5,000/month</div>
+                    <div class="stat-label">Typical SIP investment</div>
+                </div>
+                <div class="hero-stat animate delay-3">
+                    <div class="stat-value">12-15%</div>
+                    <div class="stat-label">Average annual return</div>
+                </div>
+                <div class="hero-stat animate delay-1">
+                    <div class="stat-value">PKR 1 Cr+</div>
+                    <div class="stat-label">Potential in 20 years</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-container">
+                <div class="calculator-form animate">
+                    <h2><i class="fas fa-calculator"></i> Calculate Your SIP</h2>
+                    <p>Enter your investment details to see potential returns</p>
+                    
+                    <div class="form-group">
+                        <label for="monthly-investment">Monthly Investment (PKR)</label>
+                        <div class="input-group">
+                            <span>PKR</span>
+                            <input type="number" id="monthly-investment" value="5000" min="500" max="1000000">
+                        </div>
+                        <input type="range" class="input-slider" id="monthly-slider" min="500" max="100000" step="500" value="5000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="investment-period">Investment Period (Years)</label>
+                        <div class="input-group">
+                            <span>Yrs</span>
+                            <input type="number" id="investment-period" value="10" min="1" max="30">
+                        </div>
+                        <input type="range" class="input-slider" id="period-slider" min="1" max="30" step="1" value="10">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="expected-return">Expected Return Rate (%)</label>
+                        <div class="input-group">
+                            <span>%</span>
+                            <input type="number" id="expected-return" value="12" min="1" max="30" step="0.1">
+                        </div>
+                        <input type="range" class="input-slider" id="return-slider" min="1" max="30" step="0.5" value="12">
+                    </div>
+                </div>
+                
+                <div class="calculator-results animate delay-1">
+                    <div class="results-header">
+                        <h3 class="results-title">Your SIP Results</h3>
+                        <span id="last-updated">Just now</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span class="result-label">Monthly Investment</span>
+                        <span class="result-value" id="result-monthly">PKR 5,000</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span class="result-label">Total Investment</span>
+                        <span class="result-value" id="result-total-investment">PKR 600,000</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span class="result-label">Estimated Returns</span>
+                        <span class="result-value" id="result-estimated-returns">PKR 466,096</span>
+                    </div>
+                    
+                    <div class="result-item" style="border-top: 2px solid var(--light-teal); padding-top: 15px;">
+                        <span class="result-label" style="font-weight: 700;">Total Value</span>
+                        <span class="result-value highlight-value" id="result-total-value">PKR 1,066,096</span>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="sipChart"></canvas>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="download-pdf">
+                            <i class="fas fa-download"></i> Download as PDF
+                        </button>
+                        <button class="btn btn-outline" id="reset-calculator">
+                            <i class="fas fa-redo"></i> Reset Calculator
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education-section">
+        <div class="container">
+            <h2 class="section-title animate">Understanding SIP Investments</h2>
+            <div class="education-container">
+                <div class="education-card animate">
+                    <div class="card-header">
+                        <i class="fas fa-question-circle"></i>
+                        <h3>What is SIP?</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>A Systematic Investment Plan (SIP) is an investment strategy where you invest a fixed amount regularly (usually monthly) in mutual funds. Instead of investing a lump sum, SIP allows you to invest smaller amounts over time.</p>
+                        <p>This approach helps in:</p>
+                        <ul class="benefits-list">
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Building wealth gradually through disciplined investing</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Benefiting from rupee cost averaging</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Reducing the impact of market volatility</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Making investing accessible with small amounts</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="education-card animate delay-1">
+                    <div class="card-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Why Choose SIP?</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>SIPs are one of the most effective ways for retail investors to build wealth over the long term. Here's why:</p>
+                        <ul class="benefits-list">
+                            <li>
+                                <i class="fas fa-rupee-sign"></i>
+                                <span><strong>Affordability:</strong> Start with as little as PKR 500 per month</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-balance-scale"></i>
+                                <span><strong>Discipline:</strong> Instills financial discipline through regular investing</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-chart-line"></i>
+                                <span><strong>Compounding:</strong> Harnesses the power of compounding over time</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-shield-alt"></i>
+                                <span><strong>Risk Management:</strong> Reduces risk through diversification and averaging</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-user-clock"></i>
+                                <span><strong>Flexibility:</strong> Easily increase, decrease, or pause investments</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="education-card animate delay-2">
+                    <div class="card-header">
+                        <i class="fas fa-cogs"></i>
+                        <h3>How SIP Calculator Works</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Our SIP calculator uses the power of compounding to estimate the future value of your investments.</p>
+                        <div class="how-it-works">
+                            <div class="step-item">
+                                <p><strong>Monthly Investment:</strong> The fixed amount you invest every month</p>
+                            </div>
+                            <div class="step-item">
+                                <p><strong>Investment Period:</strong> The duration (in years) you plan to continue your SIP</p>
+                            </div>
+                            <div class="step-item">
+                                <p><strong>Expected Return:</strong> The annual rate of return you anticipate on your investment</p>
+                            </div>
+                            <div class="step-item">
+                                <p><strong>Calculation:</strong> The calculator computes the future value using the compound interest formula for SIPs:</p>
+                                <div class="formula-box">
+                                    <div class="formula-title">Future Value Formula:</div>
+                                    <div class="formula">
+                                        FV = P × [ (1 + r)^n - 1 ] / r × (1 + r)
+                                    </div>
+                                    <p style="margin-top: 10px;">
+                                        Where:<br>
+                                        FV = Future Value<br>
+                                        P = Monthly Investment<br>
+                                        r = Monthly Return Rate (Expected Return ÷ 12 ÷ 100)<br>
+                                        n = Total number of months (Investment Period × 12)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title animate">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item animate delay-1">
+                    <div class="faq-question">
+                        What is the ideal amount to invest in SIP?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>There's no one-size-fits-all answer. The ideal SIP amount depends on your financial goals, income, expenses, and investment horizon. As a rule of thumb, try to invest 20-30% of your monthly income. Start with an amount you can consistently invest every month without straining your budget.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate delay-2">
+                    <div class="faq-question">
+                        Can I change my SIP amount later?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, most mutual funds allow you to increase, decrease, or even pause your SIP investments. You can typically modify your SIP amount after completing 6 installments. However, check with your specific fund provider for their policies.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate delay-1">
+                    <div class="faq-question">
+                        How is SIP different from lump sum investment?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>SIP involves investing smaller amounts regularly over time, while lump sum investment means investing a large amount at once. SIP helps reduce market timing risk through rupee cost averaging, making it ideal for most retail investors. Lump sum investments may yield higher returns if invested at the right time, but carry higher timing risk.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate delay-2">
+                    <div class="faq-question">
+                        What is the power of compounding in SIP?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Compounding is the process where your investment earnings generate their own earnings. In SIP, not only does your principal grow, but the returns on your investment also earn returns over time. The longer you stay invested, the more powerful compounding becomes. Starting early gives your money more time to compound, significantly increasing your wealth.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate delay-1">
+                    <div class="faq-question">
+                        Are SIP returns guaranteed?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, SIP returns are not guaranteed as they are linked to market performance. Mutual funds invest in various securities whose values fluctuate. While historical data shows equity mutual funds have delivered 12-15% annual returns over long periods, these are not guaranteed. Your actual returns may vary based on market conditions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Investnama</h3>
+                    <div class="footer-about">
+                        <p>Empowering investors through education and innovative financial tools to help you grow your wealth.</p>
+                        <div class="social-links">
+                            <a href="comingsoon.html"><i class="fab fa-facebook-f"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-twitter"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-instagram"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="learn.html"><i class="fas fa-book"></i> Learning Center</a></li>
+                        <li><a href="tools.html"><i class="fas fa-calculator"></i> Financial Tools</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-chart-bar"></i> Market Insights</a></li>
+                        <li><a href="glossary.html"><i class="fas fa-bookmark"></i> Investment Glossary</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-users"></i> Our Team</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-briefcase"></i> Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="comingsoon.html"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-cookie-bite"></i> Cookie Policy</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-balance-scale"></i> Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Investnama. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--primary-teal);"></i> for Smart Investors</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+        });
+        
+        // Close mobile menu when clicking on links
+        const mobileLinks = document.querySelectorAll('.mobile-nav a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('open');
+                mobileNav.classList.remove('open');
+            });
+        });
+        
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('.animate');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+        
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+        
+        // SIP Calculator Logic
+        const monthlyInput = document.getElementById('monthly-investment');
+        const periodInput = document.getElementById('investment-period');
+        const returnInput = document.getElementById('expected-return');
+        const monthlySlider = document.getElementById('monthly-slider');
+        const periodSlider = document.getElementById('period-slider');
+        const returnSlider = document.getElementById('return-slider');
+        const resetBtn = document.getElementById('reset-calculator');
+        
+        // Initialize chart
+        const ctx = document.getElementById('sipChart').getContext('2d');
+        let sipChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Total Investment', 'Estimated Returns'],
+                datasets: [{
+                    data: [600000, 466096],
+                    backgroundColor: [
+                        'rgba(10, 77, 140, 0.8)',
+                        'rgba(0, 169, 157, 0.8)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 14
+                            },
+                            generateLabels: function(chart) {
+                                const data = chart.data;
+                                if (data.labels.length && data.datasets.length) {
+                                    return data.labels.map((label, i) => {
+                                        const value = data.datasets[0].data[i];
+                                        const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                        const percentage = Math.round((value / total) * 100);
+                                        
+                                        return {
+                                            text: `${label}: PKR ${value.toLocaleString('en-IN')} (${percentage}%)`,
+                                            fillStyle: data.datasets[0].backgroundColor[i],
+                                            hidden: false,
+                                            index: i
+                                        };
+                                    });
+                                }
+                                return [];
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += 'PKR ' + context.raw.toLocaleString('en-IN');
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Sync inputs and sliders
+        function setupInputSync(input, slider) {
+            input.addEventListener('input', () => {
+                slider.value = input.value;
+                calculateSIP();
+            });
+            
+            slider.addEventListener('input', () => {
+                input.value = slider.value;
+                calculateSIP();
+            });
+        }
+        
+        setupInputSync(monthlyInput, monthlySlider);
+        setupInputSync(periodInput, periodSlider);
+        setupInputSync(returnInput, returnSlider);
+        
+        // Reset button
+        resetBtn.addEventListener('click', () => {
+            monthlyInput.value = 5000;
+            monthlySlider.value = 5000;
+            periodInput.value = 10;
+            periodSlider.value = 10;
+            returnInput.value = 12;
+            returnSlider.value = 12;
+            calculateSIP();
+        });
+        
+        // Calculate SIP function
+        function calculateSIP() {
+            const monthlyInvestment = parseFloat(monthlyInput.value);
+            const investmentPeriod = parseFloat(periodInput.value);
+            const expectedReturn = parseFloat(returnInput.value);
+            
+            // Calculate total investment
+            const totalMonths = investmentPeriod * 12;
+            const totalInvestment = monthlyInvestment * totalMonths;
+            
+            // Calculate future value
+            const monthlyRate = expectedReturn / 12 / 100;
+            const futureValue = monthlyInvestment * (((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) * (1 + monthlyRate));
+            
+            // Calculate estimated returns
+            const estimatedReturns = futureValue - totalInvestment;
+            
+            // Update results
+            document.getElementById('result-monthly').textContent = 'PKR ' + monthlyInvestment.toLocaleString('en-IN');
+            document.getElementById('result-total-investment').textContent = 'PKR ' + Math.round(totalInvestment).toLocaleString('en-IN');
+            document.getElementById('result-estimated-returns').textContent = 'PKR ' + Math.round(estimatedReturns).toLocaleString('en-IN');
+            document.getElementById('result-total-value').textContent = 'PKR ' + Math.round(futureValue).toLocaleString('en-IN');
+            
+            // Update chart
+            sipChart.data.datasets[0].data = [totalInvestment, estimatedReturns];
+            sipChart.update();
+            
+            // Update timestamp
+            const now = new Date();
+            document.getElementById('last-updated').textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+        
+        // Initial calculation
+        calculateSIP();
+        
+        // Download as PDF
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            // Add a temporary class to increase contrast for PDF capture
+            document.querySelector('.calculator-results').classList.add('pdf-capture');
+            
+            // Using html2canvas to capture the results section
+            html2canvas(document.querySelector('.calculator-results'), {
+                scale: 2, // Higher scale for better quality
+                backgroundColor: "#FFFFFF" // Ensure white background
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                
+                // Remove the temporary class
+                document.querySelector('.calculator-results').classList.remove('pdf-capture');
+                
+                // Using jsPDF to create PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const imgWidth = 180; // Slightly smaller to fit margins
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                
+                // Add title and timestamp
+                pdf.setFontSize(16);
+                pdf.text('SIP Investment Report - Investnama', 105, 15, null, null, 'center');
+                pdf.setFontSize(10);
+                pdf.text('Generated on: ' + new Date().toLocaleString(), 105, 22, null, null, 'center');
+                
+                // Add image to PDF with proper positioning
+                pdf.addImage(imgData, 'PNG', 15, 30, imgWidth, imgHeight);
+                
+                // Add disclaimer
+                pdf.setFontSize(9);
+                pdf.setTextColor(100);
+                pdf.text('Note: These projections are estimates only. Actual returns may vary based on market performance.', 105, 220, null, null, 'center');
+                
+                // Save the PDF
+                pdf.save('Investnama_SIP_Report.pdf');
+            });
+        });
+        
+        // Handle coming soon links
+        document.querySelectorAll('a[href="comingsoon.html"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('This feature is coming soon!');
+            });
+        });
+    </script>
+</body>
+</html>
