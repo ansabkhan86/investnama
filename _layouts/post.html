@@ -5,36 +5,46 @@ layout: default
 <article>
   <h1>{{ page.title }}</h1>
   <p><small>{{ page.date | date: "%B %d, %Y" }}</small></p>
-<p></p><small><span id="view-count">0</span> views</small></p>
+
+  <p><small><span id="view-count">0</span> views</small></p>
 
   <div class="content">
     {{ content }}
   </div>
-
-  <!-- Views display -->
-  <p id="views">Loading views…</p>
 </article>
 
-<script>
-(function(){
-  const namespace = "investnama_views"; // keep same as blog.html
-  const key = "{{ page.path | replace: '/', '-' | replace: '.', '-' | replace: '_', '-' }}";
-  const apiHit = "https://api.countapi.xyz/hit/" + namespace + "/" + encodeURIComponent(key);
-  const apiGet = "https://api.countapi.xyz/get/" + namespace + "/" + encodeURIComponent(key);
-  const el = document.getElementById('views');
-  const viewedKey = 'viewed_' + namespace + '_' + key;
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } 
+          from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
-  if (!localStorage.getItem(viewedKey)) {
-    fetch(apiHit)
-      .then(r => r.json())
-      .then(d => { el.innerText = (d.value || 0) + ' views'; })
-      .catch(() => fetch(apiGet).then(r => r.json()).then(d => el.innerText = (d.value||0) + ' views'))
-      .finally(() => localStorage.setItem(viewedKey, '1'));
-  } else {
-    fetch(apiGet)
-      .then(r => r.json())
-      .then(d => { el.innerText = (d.value || 0) + ' views'; })
-      .catch(() => { el.innerText = '— views'; });
+  const firebaseConfig = {
+    apiKey: "AIzaSyDJafkMWWjvQXRMUSgh0W3rKBoZKgu7Jfs",
+    authDomain: "investnama-blog.firebaseapp.com",
+    projectId: "investnama-blog",
+    storageBucket: "investnama-blog.firebasestorage.app",
+    messagingSenderId: "581418892568",
+    appId: "1:581418892568:web:d8fa3ea1380e797550726d",
+    measurementId: "G-TPYRQXS5VJ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const slug = window.location.pathname; // use path as doc id
+
+  async function countView() {
+    const ref = doc(db, "views", slug);
+    const snap = await getDoc(ref);
+
+    if (snap.exists()) {
+      await updateDoc(ref, { count: increment(1) });
+      document.getElementById("view-count").innerText = snap.data().count + 1;
+    } else {
+      await setDoc(ref, { count: 1 });
+      document.getElementById("view-count").innerText = 1;
+    }
   }
-})();
+
+  countView();
 </script>
