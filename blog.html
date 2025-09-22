@@ -4,122 +4,84 @@ title: Blog
 ---
 
 <style>
-.tabs { display:flex; gap:8px; margin-bottom:12px; }
-.tab-btn{ padding:8px 14px; border-radius:8px; border:1px solid #0d9488; background:#fff; cursor:pointer; font-weight:600;}
-.tab-btn.active{ background:#0d9488; color:#fff; }
-.filters{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;}
-.filter-btn{ padding:6px 10px; border-radius:6px; border:1px solid #0d9488; cursor:pointer; background:#fff;}
-.filter-btn.active{ background:#0d9488; color:#fff;}
-.post-card{ padding:12px; border:1px solid #e6e6e6; border-radius:8px; margin-bottom:10px;}
-.post-card a{ color:#0d9488; font-weight:700; text-decoration:none;}
-.meta{ color:#6b7280; font-size:0.9rem; margin-top:6px;}
+  .tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #e5e7eb;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+  .tab-btn.active {
+    background: #0d9488;
+    color: white;
+  }
+  .post-list {
+    list-style: none;
+    padding: 0;
+  }
+  .post-card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: 0.2s;
+  }
+  .post-card:hover {
+    background: #f9fafb;
+  }
+  .post-card a {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #0d9488;
+  }
+  .post-card small {
+    color: #6b7280;
+    display: block;
+    margin-top: 0.3rem;
+  }
 </style>
 
 <h1>Our Blog</h1>
 
 <div class="tabs">
-  <button class="tab-btn active" id="tab-latest">Latest</button>
-  <button class="tab-btn" id="tab-popular">Popular</button>
+  <button class="tab-btn active" onclick="showTab(event, 'latest')">Latest</button>
+  <button class="tab-btn" onclick="showTab(event, 'popular')">Popular</button>
 </div>
 
-<div class="filters">
-  <button class="filter-btn active" data-filter="all">All</button>
-  {% assign all_keywords = "" %}
+<!-- Latest Posts -->
+<ul id="latest" class="post-list">
   {% for post in site.posts %}
-    {% if post.keywords %}
-      {% for keyword in post.keywords %}
-        {% unless all_keywords contains keyword %}
-          <button class="filter-btn" data-filter="{{ keyword | escape }}">{{ keyword }}</button>
-          {% assign all_keywords = all_keywords | append: keyword | append: "," %}
-        {% endunless %}
-      {% endfor %}
-    {% endif %}
-  {% endfor %}
-</div>
-
-<!-- Latest -->
-<ul id="latest-list">
-  {% for post in site.posts %}
-    <li class="post-card" 
-        data-key="{{ post.path | replace: '/', '-' | replace: '.', '-' | replace: '_', '-' }}"
-        data-keywords="{{ post.keywords | join: ',' }}">
+    <li class="post-card">
       <a href="{{ post.url }}">{{ post.title }}</a>
-      <div class="meta">{{ post.date | date: "%B %d, %Y" }}</div>
+      <small>{{ post.date | date: "%B %d, %Y" }}</small>
     </li>
   {% endfor %}
 </ul>
 
-<!-- Popular -->
-<ul id="popular-list" style="display:none;"></ul>
+<!-- Popular Posts -->
+<ul id="popular" class="post-list" style="display:none;">
+  {% assign popular_posts = site.posts | sort: "views" | reverse %}
+  {% for post in popular_posts %}
+    <li class="post-card">
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <small>{{ post.views | default: 0 }} views</small>
+    </li>
+  {% endfor %}
+</ul>
 
 <script>
-/* Tab switching */
-document.getElementById('tab-latest').addEventListener('click', ()=>{ showTab('latest'); });
-document.getElementById('tab-popular').addEventListener('click', ()=>{ showTab('popular'); loadPopularOnce(); });
-
-function showTab(name){
-  document.getElementById('latest-list').style.display = name==='latest' ? 'block' : 'none';
-  document.getElementById('popular-list').style.display = name==='popular' ? 'block' : 'none';
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-}
-
-/* Filters */
-document.querySelectorAll('.filter-btn').forEach(btn=>{
-  btn.addEventListener('click', (e)=>{
-    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-    e.target.classList.add('active');
-    const f = e.target.getAttribute('data-filter');
-    document.querySelectorAll('.post-card').forEach(card=>{
-      const kws = card.getAttribute('data-keywords') || '';
-      card.style.display = (f==='all' || kws.includes(f)) ? 'block' : 'none';
-    });
-  });
-});
-
-/* Popular tab: fetch counts */
-const namespace = "investnama_views"; // same as post.html
-let popularLoaded = false;
-function loadPopularOnce(){
-  if(popularLoaded) return;
-  popularLoaded = true;
-
-  const cards = Array.from(document.querySelectorAll('#latest-list .post-card'));
-  if(cards.length === 0) return;
-
-  const popularList = document.getElementById('popular-list');
-  popularList.innerHTML = '<li class="post-card">Loading popular posts…</li>';
-
-  const items = cards.map(c=>{
-    return {
-      key: c.getAttribute('data-key'),
-      title: c.querySelector('a').innerText,
-      url: c.querySelector('a').getAttribute('href'),
-      date: c.querySelector('.meta').innerText,
-      views: 0
-    };
-  });
-
-  const promises = items.map(it=>{
-    const url = "https://api.countapi.xyz/get/" + namespace + "/" + encodeURIComponent(it.key);
-    return fetch(url)
-      .then(r => r.ok ? r.json() : {value:0})
-      .catch(()=>({value:0}))
-      .then(json => { it.views = json.value || 0; });
-  });
-
-  Promise.all(promises).then(()=>{
-    items.sort((a,b)=>b.views - a.views);
-    popularList.innerHTML = '';
-    items.slice(0, 20).forEach(it=>{
-      const li = document.createElement('li');
-      li.className = 'post-card';
-      li.innerHTML = `<a href="${it.url}">${it.title}</a>
-                      <div class="meta">${it.date} • ${it.views} views</div>`;
-      popularList.appendChild(li);
-    });
-  });
-}
-
-showTab('latest');
+  function showTab(event, tab) {
+    document.querySelectorAll('.post-list').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(tab).style.display = 'block';
+    event.target.classList.add('active');
+  }
 </script>
