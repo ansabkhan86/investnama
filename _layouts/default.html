@@ -1,49 +1,588 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ page.title }} | Investnama</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | Investnama | Know More. Grow More.</title>
     <meta name="description" content="{{ page.description | default: site.description }}">
-    <meta name="author" content="Investnama" />
-    <meta name="theme-color" content="#00A99D">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/css/style.css">
-  </head>
-  <body class="bg-white text-gray-800 font-sans" style="font-family: 'Inter', sans-serif;">
-
+    <meta name="keywords" content="financial planning, investment tools, wealth management, investment education, personal finance">
+    <meta name="author" content="Investnama">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:title" content="{{ page.title }} | Investnama">
+    <meta property="og:description" content="{{ page.description | default: site.description }}">
+    <meta property="og:image" content="{{ site.url }}/images/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="twitter:title" content="{{ page.title }} | Investnama">
+    <meta property="twitter:description" content="{{ page.description | default: site.description }}">
+    <meta property="twitter:image" content="{{ site.url }}/images/twitter-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #0A4D8C;
+            --primary-teal: #00A99D;
+            --secondary-blue: #0d6efd;
+            --light-teal: #e6f7f6;
+            --dark-blue: #083c6e;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-gray);
+            color: #333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .logo-blue {
+            color: var(--primary-blue);
+        }
+        
+        .logo-teal {
+            color: var(--primary-teal);
+            margin-left: 4px;
+        }
+        
+        /* Navigation */
+        .desktop-nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .desktop-nav a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .desktop-nav a i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .desktop-nav a:hover {
+            color: var(--primary-teal);
+        }
+        
+        .desktop-nav a.active {
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            position: relative;
+        }
+        
+        .mobile-menu-btn span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 30px;
+            background: var(--primary-blue);
+            border-radius: 2px;
+            left: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn span:nth-child(1) {
+            top: 10px;
+        }
+        
+        .mobile-menu-btn span:nth-child(2) {
+            top: 18px;
+        }
+        
+        .mobile-menu-btn span:nth-child(3) {
+            top: 26px;
+        }
+        
+        .mobile-menu-btn.open span:nth-child(1) {
+            top: 18px;
+            transform: rotate(45deg);
+        }
+        
+        .mobile-menu-btn.open span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-btn.open span:nth-child(3) {
+            top: 18px;
+            transform: rotate(-45deg);
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 70px);
+            background: white;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 99;
+            overflow-y: auto;
+        }
+        
+        .mobile-nav.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-nav a {
+            display: block;
+            padding: 15px 10px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .mobile-nav a i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--primary-teal);
+            background: var(--light-teal);
+        }
+        
+        /* Main Content */
+        main {
+            min-height: calc(100vh - 400px);
+            padding: 40px 0;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 70px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-teal);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-about p {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary-teal);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-teal);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 90;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: translateY(-3px) scale(1.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-container {
+                flex-direction: column;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+            
+            .hero-btns {
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-btns {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
     <!-- Header -->
-    <header class="flex items-center justify-between p-6 border-b shadow-sm sticky top-0 bg-white z-50">
-      <div class="flex items-center space-x-1">
-        <h1 class="text-3xl font-bold">
-          <span class="text-[#0A4D8C]">Invest</span>
-          <span class="text-[#00A99D]" dir="rtl" lang="ur">نامہ</span>
-        </h1>
-      </div>
-      <nav class="hidden md:flex space-x-8 text-sm font-medium" role="navigation">
-        <a href="/" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">Home</a>
-        <a href="/tools.html" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">Tools</a>
-        <a href="/learn.html" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">Learn</a>
-        <a href="/blog.html" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">Blog</a>
-        <a href="/about.html" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">About</a>
-        <a href="/contact.html" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">Contact</a>
-      </nav>
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">
+                <span class="logo-blue">Invest</span>
+                <span class="logo-teal" dir="rtl" lang="ur">نامہ</span>
+            </a>
+            
+            <nav class="desktop-nav">
+                <a href="/tools.html" {% if page.url == "/tools.html" %}class="active"{% endif %}><i class="fas fa-tools"></i> Tools</a>
+                <a href="/learn.html" {% if page.url == "/learn.html" %}class="active"{% endif %}><i class="fas fa-graduation-cap"></i> Learn</a>
+				<a href="/blog.html" {% if page.url == "/blog.html" %}class="active"{% endif %}><i class="fas fa-newspaper"></i> Blog</a>
+                <a href="/about.html" {% if page.url == "/about.html" %}class="active"{% endif %}><i class="fas fa-info-circle"></i> About</a>
+                <a href="/contact.html" {% if page.url == "/contact.html" %}class="active"{% endif %}><i class="fas fa-envelope"></i> Contact</a>
+            </nav>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="/tools.html"><i class="fas fa-tools"></i> Tools</a>
+            <a href="/learn.html"><i class="fas fa-graduation-cap"></i> Learn</a>
+			<a href="/blog.html"><i class="fas fa-newspaper"></i> Blog</a>
+            <a href="/about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="/contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
     </header>
 
     <!-- Page Content -->
-    <main class="min-h-screen">
-      {{ content }}
+    <main>
+        <div class="container">
+            {{ content }}
+        </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-50 text-center py-6 text-sm text-gray-600 border-t">
-      <p>© 2025 Investnama. All rights reserved.</p>
-      <p>
-        <a href="/privacy.html" class="text-[#0A4D8C] hover:underline">Privacy Policy</a> ·
-        <a href="/terms.html" class="text-[#0A4D8C] hover:underline">Terms</a>
-      </p>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Investnama</h3>
+                    <div class="footer-about">
+                        <p>Empowering investors through education and innovative financial tools to help you grow your wealth.</p>
+                        <div class="social-links">
+                            <a href="comingsoon.html"><i class="fab fa-facebook-f"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-twitter"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-instagram"></i></a>
+                            <a href="comingsoon.html"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="/learn.html"><i class="fas fa-book"></i> Learning Center</a></li>
+                        <li><a href="/tools.html"><i class="fas fa-calculator"></i> Financial Tools</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-chart-bar"></i> Market Insights</a></li>
+                        <li><a href="/glossary.html"><i class="fas fa-bookmark"></i> Investment Glossary</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="/about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-users"></i> Our Team</a></li>
+                        <li><a href="/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-briefcase"></i> Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="comingsoon.html"><i class="fas fa-file-alt"></i> Terms of Service</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-cookie-bite"></i> Cookie Policy</a></li>
+                        <li><a href="comingsoon.html"><i class="fas fa-balance-scale"></i> Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Investnama. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--primary-teal);"></i> for Smart Investors</p>
+            </div>
+        </div>
     </footer>
-  </body>
-</html>
 
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+        });
+        
+        // Close mobile menu when clicking on links
+        const mobileLinks = document.querySelectorAll('.mobile-nav a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('open');
+                mobileNav.classList.remove('open');
+            });
+        });
+        
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('.animate');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fadeInUp');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Dark mode toggle
+        const darkModeToggle = document.querySelector('.dark-mode-toggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = darkModeToggle.querySelector('i');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                document.body.style.backgroundColor = '#121212';
+                document.body.style.color = '#f0f0f0';
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+            }
+        });
+        
+        // Set all links to comingsoon.html
+        document.querySelectorAll('a[href="comingsoon.html"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('This feature is coming soon!');
+            });
+        });
+    </script>
+</body>
+</html>
