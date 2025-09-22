@@ -4,84 +4,68 @@ title: Blog
 ---
 
 <style>
-  .tabs {
+  .filters {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
   }
-  .tab-btn {
-    padding: 0.6rem 1.2rem;
-    border: none;
+  .filter-btn {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid #0d9488;
     border-radius: 6px;
     cursor: pointer;
-    background: #e5e7eb;
-    font-weight: 600;
-    transition: 0.3s;
+    background: white;
+    color: #0d9488;
+    font-size: 0.9rem;
+    transition: 0.2s;
   }
-  .tab-btn.active {
+  .filter-btn.active {
     background: #0d9488;
     color: white;
   }
-  .post-list {
-    list-style: none;
-    padding: 0;
-  }
   .post-card {
-    padding: 1rem;
     margin-bottom: 1rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    transition: 0.2s;
-  }
-  .post-card:hover {
-    background: #f9fafb;
-  }
-  .post-card a {
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-decoration: none;
-    color: #0d9488;
-  }
-  .post-card small {
-    color: #6b7280;
-    display: block;
-    margin-top: 0.3rem;
   }
 </style>
 
-<h1>Our Blog</h1>
+<h1>Investnama Blog</h1>
 
-<div class="tabs">
-  <button class="tab-btn active" onclick="showTab('latest')">Latest</button>
-  <button class="tab-btn" onclick="showTab('popular')">Popular</button>
+<!-- Filter Buttons -->
+<div class="filters">
+  <button class="filter-btn active" onclick="filterPosts('all')">All</button>
+  {% assign all_keywords = "" %}
+  {% for post in site.posts %}
+    {% for keyword in post.keywords %}
+      {% unless all_keywords contains keyword %}
+        <button class="filter-btn" onclick="filterPosts('{{ keyword }}')">{{ keyword }}</button>
+        {% assign all_keywords = all_keywords | append: keyword | append: "," %}
+      {% endunless %}
+    {% endfor %}
+  {% endfor %}
 </div>
 
-<!-- Latest Posts -->
-<ul id="latest" class="post-list">
+<!-- Posts -->
+<ul class="post-list">
   {% for post in site.posts %}
-    <li class="post-card">
+    <li class="post-card" data-keywords="{{ post.keywords | join: ',' }}">
       <a href="{{ post.url }}">{{ post.title }}</a>
       <small>{{ post.date | date: "%B %d, %Y" }}</small>
     </li>
   {% endfor %}
 </ul>
 
-<!-- Popular Posts (sorted by page.views front-matter or fallback to latest) -->
-<ul id="popular" class="post-list" style="display:none;">
-  {% assign popular_posts = site.posts | sort: "views" | reverse %}
-  {% for post in popular_posts %}
-    <li class="post-card">
-      <a href="{{ post.url }}">{{ post.title }}</a>
-      <small>{{ post.views | default: 0 }} views</small>
-    </li>
-  {% endfor %}
-</ul>
-
 <script>
-  function showTab(tab) {
-    document.querySelectorAll('.post-list').forEach(el => el.style.display = 'none');
-    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-    document.getElementById(tab).style.display = 'block';
+  function filterPosts(keyword) {
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
+
+    document.querySelectorAll('.post-card').forEach(post => {
+      if (keyword === 'all' || post.dataset.keywords.includes(keyword)) {
+        post.style.display = 'block';
+      } else {
+        post.style.display = 'none';
+      }
+    });
   }
 </script>
