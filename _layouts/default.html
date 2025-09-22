@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page.title }} | Investnama</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    <meta name="author" content="Investnama" />
+    <meta name="theme-color" content="#00A99D">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="bg-white text-gray-800 font-sans" style="font-family: 'Inter', sans-serif;">
+
+    <!-- Header -->
+    <header class="flex items-center justify-between p-6 border-b shadow-sm sticky top-0 bg-white z-50">
+      <div class="flex items-center space-x-1">
+        <h1 class="text-3xl font-bold">
+          <span class="text-[#0A4D8C]">Invest</span>
+          <span class="text-[#00A99D]" dir="rtl" lang="ur">نامہ</span>
+        </h1>
+      </div>
+      <nav class="hidden md:flex space-x-8 text-sm font-medium" role="navigation">
+        <a href="/" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">Home</a>
+        <a href="/tools.html" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">Tools</a>
+        <a href="/learn.html" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">Learn</a>
+        <a href="/blog.html" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">Blog</a>
+        <a href="/about.html" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">About</a>
+        <a href="/contact.html" class="text-[#0A4D8C] hover:text-[#00A99D] hover:underline">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Page Content -->
+    <main class="min-h-screen">
+      {{ content }}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 text-center py-6 text-sm text-gray-600 border-t">
+      <p>© 2025 Investnama. All rights reserved.</p>
+      <p>
+        <a href="/privacy.html" class="text-[#0A4D8C] hover:underline">Privacy Policy</a> ·
+        <a href="/terms.html" class="text-[#0A4D8C] hover:underline">Terms</a>
+      </p>
+    </footer>
+  </body>
+</html>
 
