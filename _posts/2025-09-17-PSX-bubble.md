@@ -6,6 +6,7 @@ keywords: ["PSX", "Pakistan Stock Exchange", "PSX record high", "PSX bubble", "P
 author: "Investnama"
 date: "2025-09-22"
 categories: blog
+views: 18
 ---
 
 # PSX at Record Highs: Boom or Bubble?
