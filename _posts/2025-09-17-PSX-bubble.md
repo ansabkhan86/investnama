@@ -9,8 +9,6 @@ categories: blog
 views: 18
 ---
 
-# PSX at Record Highs: Boom or Bubble?
-
 The **Pakistan Stock Exchange (PSX)** has recently crossed historic levels, fueling both **excitement and concern** among investors. While some see this as the beginning of a new growth cycle, others fear it could be a **classic bubble** waiting to burst.  
 
 In this article, we’ll explore the **current levels**, **key risks**, and **future outlook** for PSX investors.
