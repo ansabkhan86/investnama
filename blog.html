@@ -4,68 +4,122 @@ title: Blog
 ---
 
 <style>
-  .filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-  .filter-btn {
-    padding: 0.4rem 0.9rem;
-    border: 1px solid #0d9488;
-    border-radius: 6px;
-    cursor: pointer;
-    background: white;
-    color: #0d9488;
-    font-size: 0.9rem;
-    transition: 0.2s;
-  }
-  .filter-btn.active {
-    background: #0d9488;
-    color: white;
-  }
-  .post-card {
-    margin-bottom: 1rem;
-  }
+.tabs { display:flex; gap:8px; margin-bottom:12px; }
+.tab-btn{ padding:8px 14px; border-radius:8px; border:1px solid #0d9488; background:#fff; cursor:pointer; font-weight:600;}
+.tab-btn.active{ background:#0d9488; color:#fff; }
+.filters{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;}
+.filter-btn{ padding:6px 10px; border-radius:6px; border:1px solid #0d9488; cursor:pointer; background:#fff;}
+.filter-btn.active{ background:#0d9488; color:#fff;}
+.post-card{ padding:12px; border:1px solid #e6e6e6; border-radius:8px; margin-bottom:10px;}
+.post-card a{ color:#0d9488; font-weight:700; text-decoration:none;}
+.meta{ color:#6b7280; font-size:0.9rem; margin-top:6px;}
 </style>
 
-<h1>Investnama Blog</h1>
+<h1>Our Blog</h1>
 
-<!-- Filter Buttons -->
+<div class="tabs">
+  <button class="tab-btn active" id="tab-latest">Latest</button>
+  <button class="tab-btn" id="tab-popular">Popular</button>
+</div>
+
 <div class="filters">
-  <button class="filter-btn active" onclick="filterPosts('all')">All</button>
+  <button class="filter-btn active" data-filter="all">All</button>
   {% assign all_keywords = "" %}
   {% for post in site.posts %}
-    {% for keyword in post.keywords %}
-      {% unless all_keywords contains keyword %}
-        <button class="filter-btn" onclick="filterPosts('{{ keyword }}')">{{ keyword }}</button>
-        {% assign all_keywords = all_keywords | append: keyword | append: "," %}
-      {% endunless %}
-    {% endfor %}
+    {% if post.keywords %}
+      {% for keyword in post.keywords %}
+        {% unless all_keywords contains keyword %}
+          <button class="filter-btn" data-filter="{{ keyword | escape }}">{{ keyword }}</button>
+          {% assign all_keywords = all_keywords | append: keyword | append: "," %}
+        {% endunless %}
+      {% endfor %}
+    {% endif %}
   {% endfor %}
 </div>
 
-<!-- Posts -->
-<ul class="post-list">
+<!-- Latest -->
+<ul id="latest-list">
   {% for post in site.posts %}
-    <li class="post-card" data-keywords="{{ post.keywords | join: ',' }}">
+    <li class="post-card" 
+        data-key="{{ post.path | replace: '/', '-' | replace: '.', '-' | replace: '_', '-' }}"
+        data-keywords="{{ post.keywords | join: ',' }}">
       <a href="{{ post.url }}">{{ post.title }}</a>
-      <small>{{ post.date | date: "%B %d, %Y" }}</small>
+      <div class="meta">{{ post.date | date: "%B %d, %Y" }}</div>
     </li>
   {% endfor %}
 </ul>
 
-<script>
-  function filterPosts(keyword) {
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+<!-- Popular -->
+<ul id="popular-list" style="display:none;"></ul>
 
-    document.querySelectorAll('.post-card').forEach(post => {
-      if (keyword === 'all' || post.dataset.keywords.includes(keyword)) {
-        post.style.display = 'block';
-      } else {
-        post.style.display = 'none';
-      }
+<script>
+/* Tab switching */
+document.getElementById('tab-latest').addEventListener('click', ()=>{ showTab('latest'); });
+document.getElementById('tab-popular').addEventListener('click', ()=>{ showTab('popular'); loadPopularOnce(); });
+
+function showTab(name){
+  document.getElementById('latest-list').style.display = name==='latest' ? 'block' : 'none';
+  document.getElementById('popular-list').style.display = name==='popular' ? 'block' : 'none';
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+/* Filters */
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click', (e)=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    e.target.classList.add('active');
+    const f = e.target.getAttribute('data-filter');
+    document.querySelectorAll('.post-card').forEach(card=>{
+      const kws = card.getAttribute('data-keywords') || '';
+      card.style.display = (f==='all' || kws.includes(f)) ? 'block' : 'none';
     });
-  }
+  });
+});
+
+/* Popular tab: fetch counts */
+const namespace = "investnama_views"; // same as post.html
+let popularLoaded = false;
+function loadPopularOnce(){
+  if(popularLoaded) return;
+  popularLoaded = true;
+
+  const cards = Array.from(document.querySelectorAll('#latest-list .post-card'));
+  if(cards.length === 0) return;
+
+  const popularList = document.getElementById('popular-list');
+  popularList.innerHTML = '<li class="post-card">Loading popular posts…</li>';
+
+  const items = cards.map(c=>{
+    return {
+      key: c.getAttribute('data-key'),
+      title: c.querySelector('a').innerText,
+      url: c.querySelector('a').getAttribute('href'),
+      date: c.querySelector('.meta').innerText,
+      views: 0
+    };
+  });
+
+  const promises = items.map(it=>{
+    const url = "https://api.countapi.xyz/get/" + namespace + "/" + encodeURIComponent(it.key);
+    return fetch(url)
+      .then(r => r.ok ? r.json() : {value:0})
+      .catch(()=>({value:0}))
+      .then(json => { it.views = json.value || 0; });
+  });
+
+  Promise.all(promises).then(()=>{
+    items.sort((a,b)=>b.views - a.views);
+    popularList.innerHTML = '';
+    items.slice(0, 20).forEach(it=>{
+      const li = document.createElement('li');
+      li.className = 'post-card';
+      li.innerHTML = `<a href="${it.url}">${it.title}</a>
+                      <div class="meta">${it.date} • ${it.views} views</div>`;
+      popularList.appendChild(li);
+    });
+  });
+}
+
+showTab('latest');
 </script>
